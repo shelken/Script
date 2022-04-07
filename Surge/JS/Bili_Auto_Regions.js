@@ -146,17 +146,15 @@ function EnvInfo() {
 		// const jsonstr = JSON.stringify(data,null, 2);
 		// console.log(`response not undefined: ${jsonstr}`)
 		SwitchRegion(data.title || (raw.code === -404 ? -404 : null))
-			.then(s => {
-				if(s){
-					$done({
-						status: $.isQuanX ? "HTTP/1.1 408 Request Timeout" : 408,
-						headers: {
-							Connection: "close"
-						},
-						body: "{}"
-                    })
-                }
-            });
+			.then(s => s ? $done({
+				status: $.isQuanX ? "HTTP/1.1 408 Request Timeout" : 408,
+				headers: {
+					Connection: "close"
+				},
+				body: "{}"
+			}) : $done({
+				body: $response.body
+			}));
 	} else {
 		const raw = $request.url;
 		// const jsonstr = JSON.stringify(raw,null, 2);
