@@ -17,10 +17,10 @@ Use: Surge, QuanX, Loon
 低于以上版本仅显示豆瓣评分.
 
 您需要配置相关规则集:
-Surge、Loon: 
+Surge、Loon:
 https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/StreamingMedia/StreamingSE.list
 
-QuanX: 
+QuanX:
 https://raw.githubusercontent.com/DivineEngine/Profiles/master/Quantumult/Filter/StreamingMedia/StreamingSE.list
 
 绑定相关select或static策略组，并且需要具有相关的区域代理服务器纳入您的子策略中，子策略可以是服务器也可以是其他区域策略组．
@@ -146,13 +146,17 @@ function EnvInfo() {
 		// const jsonstr = JSON.stringify(data,null, 2);
 		// console.log(`response not undefined: ${jsonstr}`)
 		SwitchRegion(data.title || (raw.code === -404 ? -404 : null))
-			.then(s => s ? $done({
-				status: $.isQuanX ? "HTTP/1.1 408 Request Timeout" : 408,
-				headers: {
-					Connection: "close"
-				},
-				body: "{}"
-			}) : QueryRating(raw, data));
+			.then(s => {
+				if(s){
+					$done({
+						status: $.isQuanX ? "HTTP/1.1 408 Request Timeout" : 408,
+						headers: {
+							Connection: "close"
+						},
+						body: "{}"
+                    })
+                }
+            });
 	} else {
 		const raw = $request.url;
 		// const jsonstr = JSON.stringify(raw,null, 2);
