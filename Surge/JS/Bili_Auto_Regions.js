@@ -135,6 +135,7 @@ function EnvInfo() {
 	if (typeof($response) !== 'undefined') {
 		const raw = JSON.parse($response.body);
 		const data = raw.data || raw.result || {};
+		console.log(`response not undefined: ${data}`)
 		SwitchRegion(data.title || (raw.code === -404 ? -404 : null))
 			.then(s => s ? $done({
 				status: $.isQuanX ? "HTTP/1.1 408 Request Timeout" : 408,
@@ -145,6 +146,7 @@ function EnvInfo() {
 			}) : QueryRating(raw, data));
 	} else {
 		const raw = $request.url;
+		console.log(`response undefined: ${raw}`)
 		const res = {
 			url: raw.replace(/%20(%E6%B8%AF|%E5%8F%B0|%E4%B8%AD)&/g, '&')
 		};
