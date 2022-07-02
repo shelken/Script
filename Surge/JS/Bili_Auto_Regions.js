@@ -93,11 +93,7 @@ async function SwitchRegion(play) {
 		} else if (/\u50c5[\u4e00-\u9fa5]+\u53f0|%20%E5%8F%B0&/.test(play)) {
 			if (current != TW) select = TW;
 		} else if (play === -404) {
-			if(current == DF ){
-				select = HK;
-			}else if(current == HK){
-				select = CN;
-			}else if (current != DF) {
+			if (current != DF) {
 				select = DF;
 			}
 		} else if (current != CN) {
