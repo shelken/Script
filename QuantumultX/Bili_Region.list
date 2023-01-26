@@ -1,1 +1,1 @@
-ip-cidr, 203.107.1.1/24, reject
+ip-cidr, 203.107.1.0/24, reject
